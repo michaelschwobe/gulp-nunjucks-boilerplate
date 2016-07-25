@@ -1,0 +1,6 @@
+@charset 'utf-8';
+
+[class^='c-example-partial']::before {
+  display: block;
+  content: 'main.scss works!';
+}

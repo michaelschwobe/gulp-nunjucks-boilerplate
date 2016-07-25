@@ -1,0 +1,17 @@
+{% extends 'layouts/page.html' %}
+
+{%- block variables -%}
+  {{ super() }}
+  {%- set title = 'Home' -%}
+  {%- set body_class = 's-home' -%}
+{%- endblock -%}
+
+{% block content %}
+
+  <div>{{ title }} | <a href="{{ path_base }}/about/">About</a></div>
+
+  {% include 'partials/example-partial.html' %}
+
+  {{ exampleMacro('example-macro works!', 'c-example-macro--home') }}
+
+{% endblock %}

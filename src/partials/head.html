@@ -1,0 +1,8 @@
+{%- block head -%}
+
+  {%- for style in styles %}
+    {%- set stylesheet = style + '.min' if minify else style -%}
+    <link rel="stylesheet" href="{{ path_base }}/css/{{ stylesheet | replace('.min.min', '.min') }}.css" />
+  {% endfor -%}
+
+{%- endblock -%}
