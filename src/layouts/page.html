@@ -3,8 +3,18 @@
 {% block body %}
 
   <div class="site">
-    {% block content %}
-    {% endblock %}
+
+    {% include 'partials/header.html' %}
+
+    <main class="main" role="main">
+      {% block summary %}
+      {% endblock %}
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+
   </div>
 
 {% endblock %}

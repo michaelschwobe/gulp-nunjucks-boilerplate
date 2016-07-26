@@ -9,9 +9,13 @@
   {%- set scripts = ['main', 'about'] -%}
 {%- endblock -%}
 
-{% block content %}
+{% block summary %}
 
   <div><a href="{{ path_base }}/">Home</a> | {{ title }}</div>
+
+{% endblock %}
+
+{% block content %}
 
   {% include 'partials/example-partial.html' %}
 

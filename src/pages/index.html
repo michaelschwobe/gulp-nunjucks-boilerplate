@@ -6,9 +6,13 @@
   {%- set body_class = 'home' -%}
 {%- endblock -%}
 
-{% block content %}
+{% block summary %}
 
   <div>{{ title }} | <a href="{{ path_base }}/about/">About</a></div>
+
+{% endblock %}
+
+{% block content %}
 
   {% include 'partials/example-partial.html' %}
 
