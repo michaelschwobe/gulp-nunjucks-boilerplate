@@ -1,5 +1,13 @@
 {%- block head -%}
 
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ title }} | {{ site_longname }}</title>
+
+  <link rel="canonical" href="{{ path_full }}/{{ path_page }}" />
+
   {%- for style in styles %}
     {%- set stylesheet = style + '.min' if minify else style -%}
     <link rel="stylesheet" href="{{ path_base }}/css/{{ stylesheet | replace('.min.min', '.min') }}.css" />
