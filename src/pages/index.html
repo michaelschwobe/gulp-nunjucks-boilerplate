@@ -3,7 +3,7 @@
 {%- block variables -%}
   {{ super() }}
   {%- set title = 'Home' -%}
-  {%- set body_class = 's-home' -%}
+  {%- set body_class = 'home' -%}
 {%- endblock -%}
 
 {% block content %}
@@ -12,6 +12,6 @@
 
   {% include 'partials/example-partial.html' %}
 
-  {{ exampleMacro('example-macro works!', 'c-example-macro--home') }}
+  {{ exampleMacro('example-macro', 'example-macro') }}
 
 {% endblock %}

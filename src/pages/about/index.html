@@ -3,7 +3,7 @@
 {%- block variables -%}
   {{ super() }}
   {%- set title = 'About' -%}
-  {%- set body_class = 's-about' -%}
+  {%- set body_class = 'about' -%}
   {%- set path_page = 'about/index.html' -%}
   {%- set styles = ['main', 'about'] -%}
   {%- set scripts = ['main', 'about'] -%}
@@ -15,6 +15,6 @@
 
   {% include 'partials/example-partial.html' %}
 
-  {{ exampleMacro('example-macro works!', 'c-example-macro--about') }}
+  {{ exampleMacro('example-macro', 'example-macro') }}
 
 {% endblock %}
