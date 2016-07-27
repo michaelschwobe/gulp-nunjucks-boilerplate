@@ -30,6 +30,7 @@ import watchify from 'gulp-watchify';
 
 const isProd = process.env.NODE_ENV === 'production';
 
+const minifyHTML = true;
 const formatHTML = false;
 
 const paths = {
@@ -62,6 +63,8 @@ const pluginConfig = {
   },
   imagemin: {
     interlaced: true,
+    optimizationLevel: 7,
+    progressive: true,
   },
   jsbeautify: {
     extra_liners: [false],
@@ -114,7 +117,9 @@ function handleErrors() {
 Move assets.
  */
 gulp.task('assets', () => (
-  gulp.src(`${paths.entry}/assets/**/*`)
+  gulp.src(`${paths.entry}/assets/**/*`, {
+    dot: true,
+  })
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(isProd ? util.noop() : changed(paths.output))
   .pipe(gulp.dest(paths.output))
@@ -132,7 +137,7 @@ gulp.task('pages', () => (
   gulp.src(`${paths.entry}/pages/**/*.+(html|njk|nunjucks)`)
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(nunjucksRender(pluginConfig.nunjucksRender))
-  .pipe(isProd ? htmlmin(pluginConfig.htmlmin) : util.noop())
+  .pipe(isProd && minifyHTML ? htmlmin(pluginConfig.htmlmin) : util.noop())
   .pipe(isProd && formatHTML ? jsbeautify(pluginConfig.jsbeautify) : util.noop())
   .pipe(gulp.dest(paths.output))
 ));
