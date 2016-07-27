@@ -11,6 +11,7 @@ import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import htmlmin from 'gulp-htmlmin';
 import imagemin from 'gulp-imagemin';
+import jsbeautify from 'gulp-jsbeautifier';
 import notify from 'gulp-notify';
 import nunjucksRender from 'gulp-nunjucks-render';
 import plumber from 'gulp-plumber';
@@ -28,6 +29,8 @@ import watchify from 'gulp-watchify';
 /*----------------------------------------------------------------------------*/
 
 const isProd = process.env.NODE_ENV === 'production';
+
+const formatHTML = false;
 
 const paths = {
   entry: 'src',
@@ -50,9 +53,22 @@ const pluginConfig = {
   },
   htmlmin: {
     collapseWhitespace: true,
+    keepClosingSlash: true,
+    minifyCSS: true,
+    minifyJS: true,
+    removeComments: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
   },
   imagemin: {
     interlaced: true,
+  },
+  jsbeautify: {
+    extra_liners: [false],
+    indent_size: 2,
+    max_preserve_newlines: 1,
+    preserve_newlines: false,
+    wrap_attributes: 2,
   },
   notify: {
     title: 'Compile Error',
@@ -117,6 +133,7 @@ gulp.task('pages', () => (
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(nunjucksRender(pluginConfig.nunjucksRender))
   .pipe(isProd ? htmlmin(pluginConfig.htmlmin) : util.noop())
+  .pipe(isProd && formatHTML ? jsbeautify(pluginConfig.jsbeautify) : util.noop())
   .pipe(gulp.dest(paths.output))
 ));
 
