@@ -30,8 +30,7 @@ import watchify from 'gulp-watchify';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const minifyHTML = true;
-const formatHTML = false;
+const isMin = !!util.env.minify;
 
 const paths = {
   entry: 'src',
@@ -81,7 +80,7 @@ const pluginConfig = {
   nunjucksRender: {
     path: `${paths.entry}/`,
     data: {
-      minify: isProd,
+      minify: isMin,
     },
     envOptions: {
       autoescape: true,
@@ -96,6 +95,9 @@ const pluginConfig = {
   },
   rename: {
     suffix: '.min',
+  },
+  sass: {
+    outputStyle: 'expanded',
   },
 };
 
@@ -137,8 +139,7 @@ gulp.task('pages', () => (
   gulp.src(`${paths.entry}/pages/**/*.+(html|njk|nunjucks)`)
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(nunjucksRender(pluginConfig.nunjucksRender))
-  .pipe(isProd && minifyHTML ? htmlmin(pluginConfig.htmlmin) : util.noop())
-  .pipe(isProd && formatHTML ? jsbeautify(pluginConfig.jsbeautify) : util.noop())
+  .pipe(isProd && isMin ? htmlmin(pluginConfig.htmlmin) : jsbeautify(pluginConfig.jsbeautify))
   .pipe(gulp.dest(paths.output))
 ));
 
@@ -178,11 +179,11 @@ gulp.task('styles:sass', () => (
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(isProd ? util.noop() : changed(`${paths.output}/css`))
   .pipe(isProd ? util.noop() : sourcemaps.init())
-  .pipe(sass())
+  .pipe(sass(pluginConfig.sass))
   .pipe(autoprefixer(pluginConfig.autoprefixer))
   .pipe(isProd ? util.noop() : sourcemaps.write())
-  .pipe(isProd ? cssnano(pluginConfig.cssnano) : util.noop())
-  .pipe(isProd ? rename(pluginConfig.rename) : util.noop())
+  .pipe(isProd && isMin ? cssnano(pluginConfig.cssnano) : util.noop())
+  .pipe(isProd && isMin ? rename(pluginConfig.rename) : util.noop())
   .pipe(gulp.dest(`${paths.output}/css`))
   .pipe(isProd ? util.noop() : browserSync.stream())
 ));
@@ -237,8 +238,8 @@ gulp.task('scripts:watchify', ['scripts:lint'], watchify((watchify) => (
     watch: !isProd,
     setup: (bundle) => bundle.transform(babelify),
   }))
-  .pipe(isProd ? streamify(uglify()) : util.noop())
-  .pipe(isProd ? streamify(rename(pluginConfig.rename)) : util.noop())
+  .pipe(isProd && isMin ? streamify(uglify()) : streamify(jsbeautify(pluginConfig.jsbeautify)))
+  .pipe(isProd && isMin ? streamify(rename(pluginConfig.rename)) : util.noop())
   .pipe(gulp.dest(`${paths.output}/js`))
   .pipe(isProd ? util.noop() : browserSync.stream())
 )));

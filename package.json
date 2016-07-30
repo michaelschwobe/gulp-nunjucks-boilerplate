@@ -30,7 +30,8 @@
     "clean": "gulp clean",
     "lint": "gulp scripts:lint",
     "start": "gulp",
-    "build": "NODE_ENV=production gulp"
+    "build": "NODE_ENV=production gulp",
+    "build:minify": "NODE_ENV=production gulp --minify"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",

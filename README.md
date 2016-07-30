@@ -8,7 +8,7 @@ __Required globally:__ [npm](https://nodejs.org/en/), [gulp-cli](http://gulpjs.c
 
 - __Installation:__ `npm i`
 - __Development:__ `npm start`
-- __Production:__ `npm run build`
+- __Production:__ `npm run build` or `npm run build:minify`
 
 ## Documentation
 
