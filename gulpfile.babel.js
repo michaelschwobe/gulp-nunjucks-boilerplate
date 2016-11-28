@@ -42,6 +42,7 @@ const pluginConfig = {
     browsers: ['last 2 versions'],
   },
   browserSync: {
+    port: process.env.PORT || 3000,
     server: {
       baseDir: `${paths.output}`,
     },
@@ -80,7 +81,7 @@ const pluginConfig = {
   nunjucksRender: {
     path: `${paths.entry}/`,
     data: {
-      minify: isMin,
+      production: isProd,
     },
     envOptions: {
       autoescape: true,
@@ -112,14 +113,14 @@ function handleErrors() {
 }
 
 /*----------------------------------------------------------------------------*/
-/* Assets
+/* Public
 /*----------------------------------------------------------------------------*/
 
 /*
-Move assets.
+Move public.
  */
-gulp.task('assets', () => (
-  gulp.src(`${paths.entry}/assets/**/*`, {
+gulp.task('public', () => (
+  gulp.src(`${paths.entry}/public/**/*`, {
     dot: true,
   })
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
@@ -139,7 +140,7 @@ gulp.task('pages', () => (
   gulp.src(`${paths.entry}/pages/**/*.+(html|njk|nunjucks)`)
   .pipe(isProd ? util.noop() : plumber(pluginConfig.plumber))
   .pipe(nunjucksRender(pluginConfig.nunjucksRender))
-  .pipe(isProd && isMin ? htmlmin(pluginConfig.htmlmin) : jsbeautify(pluginConfig.jsbeautify))
+  .pipe(isProd && isMin ? htmlmin(pluginConfig.htmlmin) : util.noop()) // jsbeautify(pluginConfig.jsbeautify))
   .pipe(gulp.dest(paths.output))
 ));
 
@@ -277,7 +278,7 @@ gulp.task('serve', () => browserSync.init(pluginConfig.browserSync));
 Watch files for changes.
  */
 gulp.task('watch', () => {
-  gulp.watch(`${paths.entry}/assets/**/*`, ['assets']);
+  gulp.watch(`${paths.entry}/public/**/*`, ['public']);
 
   gulp.watch(`${paths.entry}/**/*.+(html|njk|nunjucks)`, ['html']);
 
@@ -336,13 +337,13 @@ if (isProd) {
   Production.
    */
   gulp.task('default', ['clear', 'clean'], (cb) => {
-    runSequence(['assets', 'html', 'images', 'styles', 'scripts'], cb);
+    runSequence(['public', 'html', 'images', 'styles', 'scripts'], cb);
   });
 } else {
   /*
   Development.
    */
   gulp.task('default', ['clean:ignore-images'], (cb) => {
-    runSequence(['assets', 'html', 'images', 'styles', 'scripts'], 'serve', 'watch', cb);
+    runSequence(['public', 'html', 'images', 'styles', 'scripts'], 'serve', 'watch', cb);
   });
 };

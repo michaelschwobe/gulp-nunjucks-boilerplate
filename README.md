@@ -7,7 +7,7 @@
 __Required globally:__ [npm](https://nodejs.org/en/), [gulp-cli](http://gulpjs.com/)
 
 - __Installation:__ `npm i`
-- __Development:__ `npm start`
+- __Development:__ `npm start` or using a different port: `PORT=4000 npm start`
 - __Production:__ `npm run build` or `npm run build:minify`
 
 ## Documentation
