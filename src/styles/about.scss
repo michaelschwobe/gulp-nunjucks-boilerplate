@@ -1,6 +1,4 @@
-@charset 'utf-8';
-
-.example-macro::after {
+.mymacro::after {
   display: block;
   content: 'about.scss works!';
 }

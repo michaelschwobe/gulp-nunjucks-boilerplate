@@ -1,8 +1,0 @@
-{%- block foot -%}
-
-  {%- for script in scripts %}
-    {%- set scriptname = script + '.min' if minify else script -%}
-    <script src="{{ path_base }}/js/{{ scriptname | replace('.min.min', '.min') }}.js" async defer></script>
-  {% endfor -%}
-
-{%- endblock -%}

@@ -1,0 +1,11 @@
+{% extends 'layouts/default.html' %}
+
+{% from 'macros/mymacro.html' import mymacro %}
+
+{% block content %}
+
+  <main class="main" role="main">(about - content)</main>
+
+  {{ mymacro('mymacro macro works!', 'mymacro') }}
+
+{% endblock %}

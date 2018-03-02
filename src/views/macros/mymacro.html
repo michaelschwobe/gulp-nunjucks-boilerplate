@@ -1,0 +1,20 @@
+{#
+
+  Examples:
+
+  {{ mymacro('Hello World!') }}
+  {{ mymacro('Goodbye World!', 'myClass') }}
+
+  Will compile to:
+
+  <div>Hello World!</div>
+  <div class="myClass">Goodbye World!</div>
+
+#}
+{% macro mymacro(text, class='') -%}
+
+  <div{% if class %} class="{{ class }}"{% endif %}>
+    {{ text }}
+  </div>
+
+{%- endmacro %}

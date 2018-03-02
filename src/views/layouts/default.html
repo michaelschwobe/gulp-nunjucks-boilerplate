@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    {% include 'partials/head.html' %}
+  </head>
+  <body class="page  page--{{ page.id }}">
+    <div class="site">
+
+      {% include 'partials/header.html' %}
+
+      {% block content %}
+      {% endblock %}
+
+      {% include 'partials/footer.html' %}
+
+    </div>
+
+    {% include 'partials/foot.html' %}
+  </body>
+</html>

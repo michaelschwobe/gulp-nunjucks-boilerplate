@@ -2,39 +2,96 @@
 
 > A scalable [Gulp](http://gulpjs.com/) generated [Nunjucks](https://mozilla.github.io/nunjucks/) boilerplate.
 
-## Getting Started
+__Includes:__
 
-__Required globally:__ [npm](https://nodejs.org/en/), [gulp-cli](http://gulpjs.com/)
+- Nunjucks/HTML compilation.  
+- Image optimization (imagemin).  
+- CSS/Sass processing and minification (sourcemaps, autoprefixer, clean-css).  
+- JavaScript bundling and minification (webpack, babel-minify).  
+- Delivery folder generation - clean and ready for distribution to staging, production, etc.  
+- Fully configurable build process.  
 
-- __Installation:__ `npm i`
-- __Development:__ `npm start` or using a different port: `PORT=4000 npm start`
-- __Production:__ `npm run build` or `npm run build:minify`
+## Installation
 
-## Documentation
+__Step 1:__ Add global packages to your computer.
 
-__Note:__ HTML, Styles, and Scripts are minified in production mode.
+- Required: [node & npm](https://nodejs.org/), [gulp-cli](http://gulpjs.com/)  
+- Optional: [yarn](https://yarnpkg.com/)  
 
-### HTML
-- Set global variables and macros here: `./src/layouts/default.html`
-- Create/Edit Layouts here: `./src/layouts/`
-- Create/Edit Macros here: `./src/macros/`
-- Create/Edit Pages here: `./src/pages/`
-- Create/Edit Partials here: `./src/partials/`
+__Step 2:__ Install dependencies:
 
-### Styles
-- CSS and SCSS files are processed with node-sass and autoprefixer.
-- Vendor CSS files must have the suffix `.min` to avoid being reprocessed.
-- Create/Edit stylesheets here: `./src/styles/`
+```sh
+yarn
+```
 
-### Scripts
-- JavaScript files are processed down to ES5 with babelify and browserify/watchify.
-- Vendor JavaScript files must have the suffix `.min` to avoid being reprocessed.
-- Create/Edit scripts here: `./src/scripts/`
+## Configuration
 
-### Images
-- GIF, JPG, PNG, and SVG files are processed with imagemin.
-- Create/Edit images here: `./src/images/`
+Default paths and plugin-configurations can be modified to your liking, but anything beyond that may require some Gulp file refactoring. Additional documentation provided via comments within `gulpfile.js`.
 
-### Other Assets
-- Files that aren't processed but still need to be handled (ex: dotfiles, favicons, fonts, etc).
-- Create/Edit assets here: `./src/assets/`
+An example file structure with [include-media](https://www.npmjs.com/package/include-media), [normalize.css](https://www.npmjs.com/package/normalize.css), [flexboxgrid](https://www.npmjs.com/package/flexboxgrid), and [jQuery](https://www.npmjs.com/package/jquery) (via node_modules) have been added to the project. To reduce build size, feel free to remove these extra files and packages if they go unused.
+
+```
+src/
+├── media/
+│   └── *.gif, *.jpg, *.png, *.svg
+├── public/
+│   └── *.ico, *.xml, etc...
+├── scripts/
+│   └── *.js (or *.module.js - for exports only)
+├── styles/
+│   └── *.css, *.scss
+└── views/
+    └── *.html, *.njk, *.nunjucks
+```
+
+Do __NOT__ remove or rename the immediate folders within `src` unless you plan to modify the gulp configuration.
+
+## Development
+
+__Default script:__
+
+Processes source files, starts a BrowerSync server (defaults to port 3000), and watches for file changes.
+
+```sh
+yarn start
+```
+
+__Other scripts:__
+
+Deletes the generated output folder. This is your reset button.
+
+```sh
+yarn clean
+```
+
+## Staging/Production
+
+__Default script:__
+
+Processes/minifies/moves files to the configured output folder for distribution.
+
+```sh
+yarn build
+```
+
+__Notes:__
+
+- Use a bang to avoid comments from being stripped out of stylesheets, ex: `/*! ... */`  
+- Individual production tasks can be run seperately, ex:  
+
+```sh
+# Move public files and (sub)folders.
+yarn build:public
+
+# Nunjucks compilation.
+yarn build:views
+
+# Image optimization.
+yarn build:media
+
+# CSS/Sass processing and minification.
+yarn build:styles
+
+# JavaScript bundling and minification.
+yarn build:scripts
+```

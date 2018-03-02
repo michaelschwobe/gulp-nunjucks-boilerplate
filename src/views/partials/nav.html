@@ -1,0 +1,19 @@
+{%- block nav -%}
+
+  <nav class="nav" role="navigation">
+
+    <h1>Main Menu</h1>
+
+    <ul class="menu  menu--primary">
+      {% for item in menus.primary %}
+        <li class="menu__item  menu__item-{{ item.id }}">
+          <a class="menu__link  {%if page.id == item.id %}is-active{% endif %}" href="{{ paths.root + item.path }}">
+            {{ item.children | safe }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+  </nav><!-- /nav -->
+
+{%- endblock -%}

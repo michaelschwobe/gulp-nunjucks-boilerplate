@@ -1,3 +1,1 @@
-(function() {
-  console.log('about.js works!');
-})();
+console.log('about.js works!');
