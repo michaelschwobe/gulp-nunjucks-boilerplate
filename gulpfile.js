@@ -21,6 +21,9 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const webpack = require('webpack-stream');
 
+// Local
+const packageJson = require('./package.json');
+
 //------------------------------------------------------------------------------
 // Configuration.
 //------------------------------------------------------------------------------
@@ -100,6 +103,7 @@ const pluginConfig = {
     path: paths.views.root,
     data: {
       isProd,
+      version: packageJson.version,
       paths: {
         root: isProd ? 'https://example.com' : '',
         scripts: '/static/scripts',

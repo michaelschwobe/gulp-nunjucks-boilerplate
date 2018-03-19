@@ -8,7 +8,7 @@
   <meta name="description" content="{{ page.description }}" />
 
   {%- for stylesheet in page.stylesheets %}
-    <link rel="stylesheet" href="{{ paths.root + paths.styles }}/{{ stylesheet }}.css" />
+    <link rel="stylesheet" href="{{ paths.root + paths.styles }}/{{ stylesheet }}.css?ver={{ version }}" />
   {% endfor -%}
 
 {%- endblock -%}
