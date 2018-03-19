@@ -177,9 +177,9 @@ gulp.task('public', () =>
 
 const getJSONFile = slug => {
   // Read Buffer from file.
-  const data = fs.readFileSync(`${paths.views.root}/${slug}.json`);
+  const fileData = fs.readFileSync(`${paths.views.root}/${slug}.json`);
   // Convert Buffer to JSON.
-  return JSON.parse(data);
+  return JSON.parse(fileData);
 };
 
 const getPageId = file =>
@@ -192,13 +192,13 @@ const getPageId = file =>
 const getDataForFile = file => {
   const id = getPageId(file);
   // Get global data.
-  const data = { ...getJSONFile('data') };
+  const jsonData = { ...getJSONFile('data') };
   // Extract and assign page data.
-  data.page = { id, ...data.pages[id] };
+  jsonData.page = { id, ...jsonData.pages[id] };
   // Remove redundant data.
-  delete data.pages;
+  delete jsonData.pages;
   // Output global and page specific data.
-  return data;
+  return jsonData;
 };
 
 gulp.task('views', () =>
