@@ -4,11 +4,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>{{ page.title }}</title>
-  <meta name="description" content="{{ page.description }}" />
+  <title>{{ page.title if page.title else site.title }}</title>
+  <meta name="description" content="{{ page.description if page.description else site.description }}" />
 
   {%- for stylesheet in page.stylesheets %}
-    <link rel="stylesheet" href="{{ paths.root + paths.styles }}/{{ stylesheet }}.css" />
+    <link rel="stylesheet" href="{{ paths.root + paths.styles }}/{{ stylesheet }}.css?ver={{ version }}" />
   {% endfor -%}
 
 {%- endblock -%}
