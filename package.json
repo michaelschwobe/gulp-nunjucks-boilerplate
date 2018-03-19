@@ -1,6 +1,6 @@
 {
   "name": "gulp-nunjucks-boilerplate",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A scalable Gulp generated Nunjucks boilerplate.",
   "license": "MIT",
   "author": "Michael Schwobe <mschwobe@gmail.com> (http://michaelschwobe.com)",

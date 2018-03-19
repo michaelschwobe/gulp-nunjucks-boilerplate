@@ -1,3 +1,11 @@
+# 2.1.0
+
+- Renamed classnames/ids for body and body > div  
+- Added 'isProd' key/value to nunjucks render data  
+- Added 'version' key/value to nunjucks render data, implemented styles and scripts cache busting  
+- Added site fallbacks for page titles and meta descriptions  
+- Fixed gulpfile bug: 'data' is already declared in the upper scope  
+
 # 2.0.0
 
 - Removed eslint  
