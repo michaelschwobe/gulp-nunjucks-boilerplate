@@ -99,6 +99,7 @@ const pluginConfig = {
   nunjucksRender: {
     path: paths.views.root,
     data: {
+      isProd,
       paths: {
         root: isProd ? 'https://example.com' : '',
         scripts: '/static/scripts',
