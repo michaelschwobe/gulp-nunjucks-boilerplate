@@ -1,4 +1,22 @@
 {
+  "site": {
+    "title": "(site title)",
+    "description": "(site meta description)"
+  },
+  "pages": {
+    "index": {
+      "title": "",
+      "description": "",
+      "stylesheets": ["main"],
+      "scripts": ["main"]
+    },
+    "about-index": {
+      "title": "(about title)",
+      "description": "(about meta description)",
+      "stylesheets": ["main", "about"],
+      "scripts": ["main", "about"]
+    }
+  },
   "menus": {
     "primary": [
       {
@@ -12,19 +30,5 @@
         "children": "<i>About</i>"
       }
     ]
-  },
-  "pages": {
-    "index": {
-      "title": "Home",
-      "description": "(meta description)",
-      "stylesheets": ["main"],
-      "scripts": ["main"]
-    },
-    "about-index": {
-      "title": "About",
-      "description": "(meta description)",
-      "stylesheets": ["main", "about"],
-      "scripts": ["main", "about"]
-    }
   }
 }
